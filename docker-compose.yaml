@@ -1,0 +1,27 @@
+#
+#  NOTE >>>>    use config/odoo.conf   for database values
+#
+
+version: '3.1'
+services:
+  web:
+    image: odoo:17.0
+    container_name: odoo-17
+    restart: always
+    ports:
+      - "8010:8069"
+    volumes:
+      - ./odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+    secrets:
+      - postgresql_password
+
+secrets:
+  postgresql_password:
+    file: odoo_pg_pass
+#
+#  NOTE >>>>    use config/odoo.conf   for database values
+#
